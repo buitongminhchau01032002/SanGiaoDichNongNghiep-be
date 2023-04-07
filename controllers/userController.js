@@ -37,6 +37,31 @@ export const getUserByEmail = async (req, res, next) => {
     }
 };
 
+// [PUT] /users
+export const updateUser = async (req, res) => {
+    try {
+        const objBody = req.body;
+        const updateObj = {};
+        Object.keys(objBody).forEach((key) => {
+            if (key !== 'password' && key !== 'email' && key !== 'isSeller') {
+                updateObj[key] = objBody[key];
+            }
+        });
+        const updatedUser = await User.findByIdAndUpdate(req.user._id, updateObj, { new: true });
+
+        if (!updatedUser) {
+            throw new ResError(401, 'Cập nhật tài khoản không thành công!');
+        }
+
+        const resUser = updatedUser.toObject();
+        delete resUser.password;
+
+        res.status(200).json(resUser);
+    } catch (error) {
+        next(err);
+    }
+};
+
 // [POST] /users/register-seller
 export const registerSeller = async (req, res, next) => {
     try {

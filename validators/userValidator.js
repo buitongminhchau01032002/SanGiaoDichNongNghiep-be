@@ -12,11 +12,6 @@ export const createUserValidator = [
     body('password').isLength({ min: 6 }).withMessage('Mật khẩu phải có ít nhất 6 kí tự'),
 ];
 
-export const updateUserValidator = [
-    param('id').isMongoId().withMessage('ID không hợp lệ'),
-    body('name').notEmpty().withMessage('Tên là bắt buộc'),
-];
-
 export const registerSellerValidator = [
     body('phone').notEmpty().withMessage('Số điện thoại là bắt buộc'),
     body('address').notEmpty().withMessage('Địa chỉ là bắt buộc'),
