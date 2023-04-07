@@ -5,7 +5,7 @@ import User from '../models/User.js';
 // [GET] /products
 export const getProducts = async (req, res, next) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find().populate({ path: 'seller', select: '-password' }).populate('category');
         res.json(products);
     } catch (err) {
         next(err);
@@ -15,7 +15,9 @@ export const getProducts = async (req, res, next) => {
 // [GET] /products/:id
 export const getProductById = async (req, res, next) => {
     try {
-        const product = await Product.findById(req.params.id);
+        const product = await Product.findById(req.params.id)
+            .populate({ path: 'seller', select: '-password' })
+            .populate('category');
         if (!product) {
             throw new ResError(404, 'Không tìm thấy sản phẩm!');
         }

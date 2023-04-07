@@ -8,11 +8,11 @@ export const createProductValidator = [
     body('category').notEmpty().withMessage('Danh mục là bắt buộc!').isMongoId().withMessage('Danh mục không đúng!'),
     body('price').notEmpty().withMessage('Giá là bắt buộc!').isInt().withMessage('Giá phải là số!'),
     body('unit').notEmpty().withMessage('Đơn vị là bắt buộc!'),
-    body('quantity').notEmpty().withMessage('Số lượng là bắt buộc!').isNumeric().withMessage('Số lượng phải là số!'),
+    body('quantity').notEmpty().withMessage('Số lượng là bắt buộc!').isInt().withMessage('Số lượng phải là số!'),
     body('minPurchase')
         .notEmpty()
         .withMessage('Số lượng mua tối thiểu là bắt buộc!')
-        .isNumeric()
+        .isInt()
         .withMessage('Số lượng mua tối thiểu phải là số!'),
     body('description').notEmpty().withMessage('Mô tả là bắt buộc!'),
 ];
@@ -32,13 +32,13 @@ export const updateProductValidator = [
         .optional()
         .notEmpty()
         .withMessage('Số lượng là bắt buộc!')
-        .isNumeric()
+        .isInt()
         .withMessage('Số lượng phải là số!'),
     body('minPurchase')
         .optional()
         .notEmpty()
         .withMessage('Số lượng mua tối thiểu là bắt buộc!')
-        .isNumeric()
+        .isInt()
         .withMessage('Số lượng mua tối thiểu phải là số!'),
     body('description').optional().notEmpty().withMessage('Mô tả là bắt buộc!'),
 ];
