@@ -16,6 +16,34 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        isSeller: {
+            type: Boolean,
+            default: false,
+        },
+        avatar: {
+            type: String,
+        },
+        phone: {
+            type: String,
+        },
+        address: {
+            type: String,
+        },
+        imageSeller: {
+            type: String,
+        },
+        brandName: {
+            type: String,
+        },
+        scale: {
+            type: String,
+        },
+        capicity: {
+            type: String,
+        },
+        description: {
+            type: String,
+        },
     },
     { timestamps: true }
 );

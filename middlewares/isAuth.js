@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/user.js';
+import User from '../models/User.js';
 import ResError from '../utils/ResError.js';
 
 const isAuth = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findOne({ _id: decoded });
+        const user = await User.findOne({ _id: decoded.userId });
         if (!user) {
             throw new ResError(401, 'Không xác thực được tài khoản');
         }
@@ -14,6 +14,7 @@ const isAuth = async (req, res, next) => {
         req.user = user;
         next();
     } catch (error) {
+        console.log(error);
         return next(new ResError(401, 'Không xác thực được tài khoản'));
     }
 };

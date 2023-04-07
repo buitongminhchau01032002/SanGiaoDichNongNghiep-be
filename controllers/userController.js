@@ -36,3 +36,38 @@ export const getUserByEmail = async (req, res, next) => {
         next(err);
     }
 };
+
+// [POST] /users/register-seller
+export const registerSeller = async (req, res, next) => {
+    try {
+        const { phone, address, imageSeller, brandName, description, scale, capicity } = req.body;
+        if (req.user.isSeller) {
+            throw new ResError(401, 'Tài khoản này đã là nhà cung cấp!');
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user._id,
+            {
+                isSeller: true,
+                phone,
+                address,
+                brandName,
+                description,
+                scale,
+                capicity,
+            },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            throw new ResError(401, 'Đăng ký không thành công!');
+        }
+
+        const resUser = updatedUser.toObject();
+        delete resUser.password;
+
+        res.status(200).json(resUser);
+    } catch (err) {
+        next(err);
+    }
+};

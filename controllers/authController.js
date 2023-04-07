@@ -6,7 +6,7 @@ import ResError from '../utils/ResError.js';
 // [POST] auth/register
 export const register = async (req, res, next) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, phone } = req.body;
 
         // Check if user with email already exists
         const userExists = await User.findOne({ email });
@@ -15,7 +15,7 @@ export const register = async (req, res, next) => {
         }
 
         // Create a new user
-        const newUser = new User({ name, email, password });
+        const newUser = new User({ name, email, password, phone });
         await newUser.save();
 
         const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET);
