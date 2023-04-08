@@ -168,7 +168,7 @@ export const checkout = async (req, res, next) => {
             totalPrice,
             totalProduct: detailCart.length,
             state: 'bought',
-            buyDate: Date.now(),
+            $currentDate: { buyDate: true },
         });
 
         res.status(200).json({ success: true });
