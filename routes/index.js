@@ -6,6 +6,7 @@ import productsRoutes from './products.js';
 import commentsRoutes from './comments.js';
 import quotationsRoutes from './quotations.js';
 import quotationRequestsRoutes from './quotation-requests.js';
+import cartsRoutes from './carts.js';
 
 const router = express.Router();
 router.use('/users', userRoutes);
@@ -15,5 +16,6 @@ router.use('/products', productsRoutes);
 router.use('/comments', commentsRoutes);
 router.use('/quotations', quotationsRoutes);
 router.use('/quotation-requests', quotationRequestsRoutes);
+router.use('/carts', cartsRoutes);
 
 export default router;

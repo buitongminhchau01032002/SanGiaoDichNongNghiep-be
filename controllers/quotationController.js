@@ -162,7 +162,7 @@ export const createQuotation = async (req, res, next) => {
             price,
             description,
             seller: req.user._id.toString(),
-            state: 'pedding',
+            state: 'pending',
         });
         await newQuotation.save();
 
