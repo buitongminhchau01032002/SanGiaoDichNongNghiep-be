@@ -55,6 +55,9 @@ export const updateQuotationRequest = async (req, res, next) => {
         });
 
         const quotationRequest = await QuotationRequest.findById(req.params.id);
+        if (!quotationRequest) {
+            throw new ResError(403, 'Không tìm thấy yêu cầu báo giá!');
+        }
         if (req.user._id.toString() !== quotationRequest.user.toString()) {
             throw new ResError(
                 403,
@@ -104,6 +107,9 @@ export const createQuotationRequest = async (req, res, next) => {
 export const deleteQuotationRequest = async (req, res, next) => {
     try {
         const quotationRequest = await QuotationRequest.findById(req.params.id);
+        if (!quotationRequest) {
+            throw new ResError(403, 'Không tìm thấy yêu cầu báo giá!');
+        }
         if (req.user._id.toString() !== quotationRequest.user.toString()) {
             throw new ResError(
                 403,

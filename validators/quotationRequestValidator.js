@@ -9,7 +9,6 @@ export const createQuotationRequestValidator = [
     body('price').notEmpty().withMessage('Giá là bắt buộc!').isInt().withMessage('Giá phải là số!'),
     body('unit').notEmpty().withMessage('Đơn vị là bắt buộc!'),
     body('quantity').notEmpty().withMessage('Số lượng là bắt buộc!').isInt().withMessage('Số lượng phải là số!'),
-    body('description').notEmpty().withMessage('Mô tả là bắt buộc!'),
     body('startDate').notEmpty().withMessage('Ngày bắt đầu là bắt buộc'),
     body('endDate').notEmpty().withMessage('Ngày kết thúc là bắt buộc'),
 ];
@@ -30,7 +29,6 @@ export const updateQuotationRequestValidator = [
         .withMessage('Số lượng là bắt buộc!')
         .isInt()
         .withMessage('Số lượng phải là số!'),
-    body('description').optional().notEmpty().withMessage('Mô tả là bắt buộc!'),
     body('startDate').optional().notEmpty().withMessage('Ngày bắt đầu là bắt buộc'),
     body('endDate').optional().notEmpty().withMessage('Ngày kết thúc là bắt buộc'),
 ];
