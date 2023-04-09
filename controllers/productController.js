@@ -1,6 +1,6 @@
 import ResError from '../utils/ResError.js';
 import Product from '../models/Product.js';
-import User from '../models/User.js';
+import { update, upload } from '../utils/imageTookit.js';
 
 // [GET] /products
 export const getProducts = async (req, res, next) => {
@@ -39,6 +39,12 @@ export const updateProduct = async (req, res, next) => {
             }
         });
 
+        // upload image
+        if (updateObj.image) {
+            const imageResult = await upload(updateObj.image);
+            updateObj.image = imageResult.image_url;
+        }
+
         const product = await Product.findById(req.params.id);
         if (req.user._id.toString() !== product.seller.toString()) {
             throw new ResError(403, 'Cập nhật sản phẩm không thành công. Sản phẩm không thuộc về tài khoản này!');
@@ -60,6 +66,14 @@ export const updateProduct = async (req, res, next) => {
 export const createProduct = async (req, res, next) => {
     try {
         const { name, category, price, unit, quantity, minPurchase, description, image } = req.body;
+
+        // upload image
+        let image_url;
+        if (image) {
+            const imageResult = await upload(image);
+            image_url = imageResult.secure_url;
+            console.log(imageResult);
+        }
         const newProduct = new Product({
             name,
             category,
@@ -68,7 +82,7 @@ export const createProduct = async (req, res, next) => {
             quantity,
             minPurchase,
             description,
-            image,
+            image: image ? image_url : undefined,
             seller: req.user._id.toString(),
         });
         await newProduct.save();

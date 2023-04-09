@@ -4,9 +4,11 @@ import corsConfig from './configs/cors.js';
 import connectDB from './configs/db.js';
 import route from './routes/index.js';
 import errorHandler from './middlewares/errorHandler.js';
+import configCloudinary from './configs/cloudinary.js';
 
 dotenv.config();
 connectDB();
+configCloudinary();
 
 // app
 const app = express();
