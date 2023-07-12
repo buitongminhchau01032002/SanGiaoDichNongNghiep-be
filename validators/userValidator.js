@@ -13,6 +13,7 @@ export const createUserValidator = [
 ];
 
 export const registerSellerValidator = [
+    body('brandName').notEmpty().withMessage('Tên nhà vườn là bắt buộc'),
     body('phone').notEmpty().withMessage('Số điện thoại là bắt buộc'),
     body('address').notEmpty().withMessage('Địa chỉ là bắt buộc'),
     body('description').notEmpty().withMessage('Mô tả nhà vườn là bắt buộc'),
