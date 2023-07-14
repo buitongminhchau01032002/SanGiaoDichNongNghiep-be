@@ -31,20 +31,6 @@ const quotationRequestSchema = new mongoose.Schema(
         description: {
             type: String,
         },
-        startDate: {
-            type: Date,
-            require: true,
-            validate: {
-                validator: function (value) {
-                    return value < this.endDate;
-                },
-                message: 'Ngày bắt đầu phải trước ngày kết thúc!',
-            },
-        },
-        endDate: {
-            type: Date,
-            require: true,
-        },
     },
     { timestamps: true }
 );
