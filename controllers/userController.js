@@ -1,5 +1,6 @@
 import ResError from '../utils/ResError.js';
 import User from '../models/User.js';
+import { upload } from '../utils/imageTookit.js';
 
 // [GET] /users
 export const getUsers = async (req, res, next) => {
@@ -47,6 +48,21 @@ export const updateUser = async (req, res) => {
                 updateObj[key] = objBody[key];
             }
         });
+
+        // upload image
+        if (updateObj.imageSeller) {
+            const imageResult = await upload(updateObj.imageSeller);
+            updateObj.imageSeller = imageResult.secure_url;
+        }
+
+        // upload image
+        if (updateObj.avatar) {
+            const imageResult = await upload(updateObj.avatar);
+            updateObj.avatar = imageResult.secure_url;
+        }
+
+        console.log(updateObj);
+
         const updatedUser = await User.findByIdAndUpdate(req.user._id, updateObj, { new: true });
 
         if (!updatedUser) {
@@ -69,6 +85,13 @@ export const registerSeller = async (req, res, next) => {
         if (req.user.isSeller) {
             throw new ResError(401, 'Tài khoản này đã là nhà cung cấp!');
         }
+        // upload image
+        let image_url;
+        if (imageSeller) {
+            const imageResult = await upload(imageSeller);
+            image_url = imageResult.secure_url;
+            console.log(imageResult);
+        }
 
         const updatedUser = await User.findByIdAndUpdate(
             req.user._id,
@@ -80,6 +103,7 @@ export const registerSeller = async (req, res, next) => {
                 description,
                 scale,
                 capicity,
+                imageSeller: image_url ? image_url : undefined,
             },
             { new: true }
         );

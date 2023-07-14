@@ -19,4 +19,5 @@ export const registerSellerValidator = [
     body('description').notEmpty().withMessage('Mô tả nhà vườn là bắt buộc'),
     body('scale').notEmpty().withMessage('Quy mô là bắt buộc'),
     body('capicity').notEmpty().withMessage('Sản lượng là bắt buộc'),
+    body('imageSeller').notEmpty().withMessage('Ảnh nhà vườn là bắt buộc'),
 ];
