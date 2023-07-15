@@ -11,7 +11,6 @@ export const createQuotationValidator = [
         .isMongoId()
         .withMessage('Yêu cầu báo giá không đúng!'),
     body('price').notEmpty().withMessage('Giá là bắt buộc!').isInt().withMessage('Giá phải là số!'),
-    body('quantity').notEmpty().withMessage('Số lượng là bắt buộc!').isInt().withMessage('Số lượng phải là số!'),
 ];
 
 export const updateQuotationValidator = [
